@@ -665,10 +665,397 @@ footer {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* ---------- Announcements banner ---------- */
 .announcement-banner {
-  background-color: var(--success);
-  color: white;
-  text-align: center;
-  padding: 15px;
+  position: relative;
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+  color: var(--secondary-text);
+  padding: 12px 48px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(196, 62, 0, 0.25);
+  animation: banner-in 0.35s ease-out;
+}
+
+.announcement-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.announcement-list li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
   font-weight: bold;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.announcement-list li + li {
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  width: 100%;
+  justify-content: center;
+}
+
+.announcement-dismiss {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.announcement-dismiss:hover,
+.announcement-dismiss:focus-visible {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+@keyframes banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Manage announcements modal ---------- */
+#manage-announcements-button {
+  white-space: nowrap;
+}
+
+.announcements-modal-content {
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 22px;
+}
+
+.announcements-modal-content h3 {
+  color: var(--primary);
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+  padding-right: 30px;
+}
+
+.announcements-modal-content h4 {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.close-announcements-modal {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.close-announcements-modal:hover,
+.close-announcements-modal:focus-visible {
+  background-color: var(--border-light);
+  color: var(--text-primary);
+}
+
+.announcement-form {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.announcement-form.editing {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(83, 75, 174, 0.12);
+}
+
+.announcement-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.announcement-form label {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.announcement-form .optional {
+  font-weight: normal;
+  color: var(--text-secondary);
+}
+
+.announcement-form .required-mark {
+  color: var(--error);
+}
+
+.announcement-form textarea,
+.announcement-form input[type="date"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.announcement-form textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.announcement-form textarea:focus,
+.announcement-form input[type="date"]:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(83, 75, 174, 0.15);
+}
+
+.char-count {
+  align-self: flex-end;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.char-count.near-limit {
+  color: var(--error);
+  font-weight: bold;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.primary-button {
+  background-color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.primary-button:hover:not(:disabled) {
+  background-color: var(--primary-light);
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.secondary-button {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.secondary-button:hover {
+  background-color: var(--border-light);
+}
+
+.announcement-form .message {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.message.success {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.message.error {
+  background-color: var(--error-light);
+  color: var(--error);
+}
+
+.message.info {
+  background-color: var(--info-light);
+  color: var(--info);
+}
+
+.announcements-manage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.announcements-count {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.announcements-manage-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.announcements-empty {
+  text-align: center;
+  padding: 16px;
+  color: var(--text-secondary);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+}
+
+.announcement-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--success);
+  border-radius: 6px;
+  background-color: var(--surface);
+  transition: box-shadow 0.2s;
+}
+
+.announcement-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.announcement-item.status-scheduled {
+  border-left-color: var(--primary-light);
+}
+
+.announcement-item.status-expired {
+  border-left-color: var(--text-secondary);
+  background-color: var(--background);
+}
+
+.announcement-item.status-expired .announcement-item-message {
+  color: var(--text-secondary);
+}
+
+.announcement-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.announcement-item-message {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+
+.announcement-item-dates {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.status-badge-active {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.status-badge-scheduled {
+  background-color: #e8eaf6;
+  color: var(--primary-light);
+}
+
+.status-badge-expired {
+  background-color: var(--border-light);
+  color: var(--text-secondary);
+}
+
+.announcement-item-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.icon-action {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.edit-action:hover,
+.edit-action:focus-visible {
+  background-color: #e8eaf6;
+  color: var(--primary);
+}
+
+.delete-action:hover,
+.delete-action:focus-visible {
+  background-color: var(--error-light);
+  color: var(--error);
+}
+
+@media (max-width: 767px) {
+  #user-controls {
+    position: static;
+    margin-top: 8px;
+  }
+
+  #user-info {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .announcements-modal-content {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .announcement-banner {
+    padding: 10px 40px 10px 12px;
+  }
 }
